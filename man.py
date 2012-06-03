@@ -1,4 +1,5 @@
 #this page generates man page in python
 #!/usr/bin/env python
-print "man"
-
+from os import system
+i=system("ls")
+print i
