@@ -20,6 +20,8 @@ class mysql():
         		conn = MySQLdb.Connection(db=self.DB, host=self.DB_HOST, user=self.DB_USER,passwd=self.DB_PASSWORD)
         		cursor = conn.cursor()
         		cursor.execute(query)
+			if cursor.description is None:
+				return [["Query Ok. No results were returned"],["success"]]
 			num_fields = len(cursor.description)
 			field_names = [i[0] for i in cursor.description]
         		results = list(cursor.fetchall())
