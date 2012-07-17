@@ -5,7 +5,7 @@ from tableGenerator import *
 import sys
 class tabClass():
 	def __init__(self):
-		self.db=mysql(DB="alse")
+		self.db=mysql()
 		self.tab=QTabWidget()
 		STRUCTURE=QWidget()
 		BROWSE=QWidget()

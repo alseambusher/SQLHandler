@@ -2,25 +2,25 @@
 import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-import simpleQuery
 from tabs import *
+import tableGenerator
+from database import *
 class MainWindow(QMainWindow):
 	def __init__(self):
 		super(MainWindow,self).__init__();
+		self.db=mysql()
 		self.initUi()
 		self.resize(800,600)
 		self.center()
 		self.setWindowState(Qt.WindowMaximized)
 	def openDock(self,tool="databases"):
-		logDockWidget=QDockWidget("Databases",self)
+		logDockWidget=QDockWidget(self)
 		logDockWidget.setObjectName("LogDockWidget")
 		logDockWidget.setAllowedAreas(Qt.LeftDockWidgetArea|Qt.RightDockWidgetArea)
-
-		self.listWidget=QListWidget()
-		logDockWidget.setWidget(self.listWidget)
-
-		self.browser=QTextBrowser()
-		logDockWidget.setWidget(self.browser)
+		#self.databases=tableGenerator.tableGenerator()
+		#select_db=self.databases.getTable(self.db.query("show databases"))
+		logDockWidget.setMinimumWidth(300)
+		logDockWidget.setWidget(tableGenerator.dbList())
 
 		self.addDockWidget(Qt.LeftDockWidgetArea,logDockWidget)
 

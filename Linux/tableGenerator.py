@@ -23,6 +23,33 @@ class tableGenerator(QWidget):
 		for elements in my_array[row]:
 			self.list.topLevelItem(row).setText(j,"%s"%elements)
 			j+=1
-	self.list.setSortingEnabled(True)
+	#item.addChild(item2)
+	#self.list.addTopLevelItem(item)
+	self.list.setSortingEnabled(False)
 	self.list.setStyleSheet("font-size:12px")
 	return self.list
+
+#this returns the database list for dockWidget
+def dbList():
+
+	list=QTreeWidget()
+	list.setObjectName("table")
+	list.headerItem().setText(0,"Databases")
+
+	from database import *
+	db=mysql()
+	databases=db.query("show databases")
+	databases.pop()
+	for row in range(0,len(databases)):
+		item_0=QTreeWidgetItem(list)
+		list.topLevelItem(row).setText(0,"%s"%databases[row][0])
+
+		db.DB=databases[row][0]
+		tables=db.query("show tables")
+		tables.pop()
+		for children in range(0,len(tables)):
+			child=QTreeWidgetItem(["%s"%tables[children][0]])
+			item_0.addChild(child)
+	list.setSortingEnabled(False)
+	list.setStyleSheet("font-size:12px")
+	return list
